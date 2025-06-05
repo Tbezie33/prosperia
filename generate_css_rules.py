@@ -16,9 +16,11 @@ def generate_css_rules():
     css_rules = []
     with open(csv_file, 'r') as f:
         csv_reader = csv.DictReader(f)
+        print("Contenu du CSV :")
         for row in csv_reader:
             userid = row['userid']
             projectid = row['projectid']
+            print(f"Lecture de la ligne - userid: {userid}, projectid: {projectid}")
 
             # Générer la règle CSS
             css_rule = f"""body:has(#desktop_default_client_space[href="/fr/users/{userid}/edit"])
@@ -26,12 +28,14 @@ def generate_css_rules():
     display: block !important;
   }}"""
             css_rules.append(css_rule)
+            print(f"Règle CSS générée :\n{css_rule}\n")
 
     # Écrire les règles dans le fichier CSS
     with open(output_file, 'w') as f:
         f.write('\n\n'.join(css_rules))
 
     print(f"Les règles CSS ont été générées dans le fichier {output_file}")
+    print(f"Nombre total de règles générées : {len(css_rules)}")
 
 if __name__ == "__main__":
     generate_css_rules()
